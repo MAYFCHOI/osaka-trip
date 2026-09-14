@@ -14,7 +14,12 @@
 1. **GitHub Pages** (홈 화면 추가·아이콘까지 되는 유일한 경로). 이 폴더를 repo 로 push → Settings → Pages → main / root. `https://<user>.github.io/osaka-trip/` 를 Safari 로 열고 공유 → 홈 화면에 추가.
 2. **파일만**: `index.html` 을 AirDrop/iCloud 로 보내 Safari 에서 열기. 동작은 전부 되지만 홈 화면 추가는 안 됨 (file:// 제한).
 
-`.ics` 는 AirDrop 이나 메일 첨부로 보내서 탭 → "모두 추가". 알림은 캘린더 앱이 담당하므로 앱 자체 푸시는 없음.
+`.ics` 는 앱의 참고 탭 → "캘린더 알림" 에서 바로 열거나, AirDrop/메일로 보내서 탭 → "모두 추가". 알림은 캘린더 앱이 담당하므로 앱 자체 푸시는 없음.
+
+## 오프라인 · 저장 주의
+
+- 서비스워커를 안 쓰므로 오프라인은 Safari 캐시에 기댄다. GitHub Pages 의 캐시 유효기간은 10분이라 **비행기 모드에서 첫 실행이 실패할 수 있다.** 백업으로 `index.html` 을 AirDrop 해서 "파일" 앱에 넣어두고, 안 열리면 거기서 연다 (기능은 전부 동작, 저장은 별도).
+- 홈 화면 앱과 Safari 는 localStorage 가 서로 분리돼 있다. 체크·예산은 **홈 화면 앱에서만** 입력한다. Safari 쪽은 7일 미방문 시 저장이 지워질 수 있다.
 
 ## 데이터 수정
 

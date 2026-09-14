@@ -22,7 +22,7 @@
   --line:#3b352d;
   --ink:#efe6d6;       /* 生成り */
   --ink2:#b5aa98;
-  --ink3:#7f7666;
+  --ink3:#948a78;
   --shu:#e0603f;       /* 朱 */
   --shu2:#b84a2d;
   --matcha:#8aa36b;
@@ -51,7 +51,7 @@ header .t{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap
 header h1{margin:0;font-size:24px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
 header .sub{color:var(--ink2);font-size:14px}
 header .sun{position:absolute;right:18px;top:calc(env(safe-area-inset-top) + 14px);width:34px;height:34px;border-radius:50%;background:var(--shu);opacity:.9;box-shadow:0 0 0 4px rgba(224,96,63,.15)}
-header .now{position:relative;margin-top:6px;font-size:13px;color:var(--ink3)}
+header .now{position:relative;margin-top:6px;font-size:14px;color:var(--ink2)}
 
 /* ---------- views ---------- */
 .view{display:none;padding:14px 16px 24px;max-width:520px;margin:0 auto}
@@ -70,20 +70,25 @@ h2{font-size:15px;color:var(--ink2);font-weight:600;letter-spacing:.08em;margin:
 
 /* ---------- timeline ---------- */
 .tl{position:relative;padding-left:14px}
+.fold{display:block;width:100%;min-height:44px;margin:0 0 10px;border-radius:12px;border:1px dashed var(--line);color:var(--ink2);font-size:14px}
+.grp .sub{display:inline-block;margin-left:8px;font-size:12px;color:var(--ink3);font-weight:400}
+.grp .mini{display:block;width:100%;min-height:44px;color:var(--ink3);font-size:13px;border-top:1px solid var(--line)}
+table.bd tr.subt td{font-size:13px;color:var(--ink2);background:var(--bg2);text-align:right}
+table.bd tr.subt td b{color:var(--kin);font-weight:600}
 .tl::before{content:"";position:absolute;left:5px;top:12px;bottom:12px;width:2px;background:var(--line);border-radius:2px}
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:14px 12px 14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:10px;
   transition:opacity .2s}
 .card .body{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px}
 .card::before{content:"";position:absolute;left:-13px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--ink3);border:2px solid var(--bg)}
-.card.next{border-color:var(--shu);box-shadow:0 0 0 1px var(--shu) inset}
+.card.next{border-color:var(--shu);box-shadow:0 0 0 1px var(--shu) inset;background:#2f2520}
 .card.next::before{background:var(--shu);box-shadow:0 0 0 4px rgba(224,96,63,.25)}
 .card.past{opacity:.55}
 .card.done{opacity:.5}
 .card .time{font-size:14px;color:var(--kin);font-weight:600;letter-spacing:.04em;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
-.card .time .nx{font-size:11px;background:var(--shu);color:#fff;padding:1px 7px;border-radius:99px;font-weight:700;letter-spacing:.1em}
+.card .time .nx{font-size:11px;background:var(--shu);color:var(--bg);padding:1px 7px;border-radius:99px;font-weight:700;letter-spacing:.1em}
 .card .name{font-size:20px;font-weight:700;line-height:1.3;overflow-wrap:anywhere}
-.card .name a{text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:28px}
+.card .name a{text-decoration:none;display:flex;align-items:center;gap:6px;min-height:44px;margin:-8px 0}
 .card .name a .pin{width:14px;height:14px;fill:var(--matcha);flex:none}
 .card .memo{font-size:15px;line-height:1.45;color:var(--ink2);overflow-wrap:anywhere}
 .card .memo b{color:var(--ink);font-weight:700}
@@ -171,7 +176,7 @@ nav button.on{color:var(--shu)}
 
 <div id="scroll">
 <header>
-  <div class="t"><h1 class="jp">大阪 二泊三日</h1><span class="sub">2026.9.20 – 22</span></div>
+  <div class="t"><h1 class="jp" lang="ja">大阪 二泊三日</h1><span class="sub">2026.9.20 – 22</span></div>
   <div class="now" id="now">—</div>
   <div class="sun"></div>
 </header>
@@ -192,7 +197,7 @@ nav button.on{color:var(--shu)}
 <!-- 3. 예산 -->
 <section class="view" id="v-budget">
   <div class="sum" id="sum"></div>
-  <div class="rate"><span>환율 ¥1 =</span><input type="number" id="rate" inputmode="decimal" step="0.01" min="1"><span>원</span></div>
+  <div class="rate"><span>환율 ¥1 =</span><input type="number" id="rate" inputmode="decimal" step="0.01" min="1" aria-label="환율"><span>원</span></div>
   <table class="bd">
     <thead><tr><th>항목</th><th>예상</th><th style="text-align:right">실제 ¥</th></tr></thead>
     <tbody id="bd"></tbody>
@@ -212,7 +217,7 @@ nav button.on{color:var(--shu)}
       <p><b>우츠보 공원 왕복 5.5km</b>, 6'30"/km 기준 약 36분. 9/21(월) 06:25 출발.</p>
       <p>호텔 J-ship → 북쪽으로 직진 → 우츠보 공원(도착 후 공원 한 바퀴) → 같은 길로 복귀. 도로 신호가 많으니 시각은 ±2분.</p>
       <table class="run" id="run"></table>
-      <a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=34.6641722,135.4943818&destination=34.6849820,135.4935063&travelmode=walking">▶ 지도에서 경로 보기</a>
+      <a class="lnk" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=34.6641722,135.4943818&destination=34.6849820,135.4935063&travelmode=walking">▶ 지도에서 경로 보기</a>
     </div>
   </details>
   <details>
@@ -232,19 +237,27 @@ nav button.on{color:var(--shu)}
     </div>
   </details>
   <details>
+    <summary>캘린더 알림</summary>
+    <div class="bd">
+      <p>앱은 푸시 알림이 없습니다. 아래를 눌러 아이폰 캘린더에 넣으면 각 일정 30분 전에 캘린더가 알려줍니다. 한 번만 하면 됩니다.</p>
+      <a class="lnk" href="osaka-trip.ics">▶ 일정 44건 캘린더에 추가 (.ics)</a>
+      <p class="hint" style="margin-top:4px">"모두 추가" 를 누르면 됩니다. 다시 눌러도 같은 일정은 중복되지 않고 갱신됩니다.</p>
+    </div>
+  </details>
+  <details>
     <summary>비상 연락처</summary>
     <div class="bd" id="tels"></div>
   </details>
 </section>
 </div><!-- /scroll -->
 
-<div id="big"><div class="s"></div><div class="j jp"></div><div class="r"></div><div class="x">아무 곳이나 누르면 닫힘</div></div>
+<div id="big"><div class="s"></div><div class="j jp" lang="ja"></div><div class="r"></div><div class="x">아무 곳이나 누르면 닫힘</div></div>
 
 <nav>
-  <button data-v="plan" class="on"><span class="k jp">旅</span><span class="l">일정</span></button>
-  <button data-v="check"><span class="k jp">確</span><span class="l">체크리스트</span></button>
-  <button data-v="budget"><span class="k jp">円</span><span class="l">예산</span></button>
-  <button data-v="ref"><span class="k jp">参</span><span class="l">참고</span></button>
+  <button data-v="plan" class="on"><span class="k jp" lang="ja">旅</span><span class="l">일정</span></button>
+  <button data-v="check"><span class="k jp" lang="ja">確</span><span class="l">체크리스트</span></button>
+  <button data-v="budget"><span class="k jp" lang="ja">円</span><span class="l">예산</span></button>
+  <button data-v="ref"><span class="k jp" lang="ja">参</span><span class="l">참고</span></button>
 </nav>
 
 <script id="data" type="application/json">
@@ -266,7 +279,7 @@ nav button.on{color:var(--shu)}
       {"id":"d1-12","t":"17:00","name":"호텔 체크인","memo":"","cost":0,"lat":34.6641722,"lng":135.4943818},
       {"id":"d1-13","t":"18:30","name":"호텔 출발","memo":"도보 2.2km","cost":0},
       {"id":"d1-14","t":"19:45","name":"Proust","memo":"그릴 치킨 + 아사히 슈퍼드라이 (오늘의 1잔)","cost":4600,"lat":34.6744242,"lng":135.5030799},
-      {"id":"d1-15","t":"20:00","tShow":"20:00 / 21:30","name":"공연 2세트","memo":"Shingo Kano Quartet","cost":0,"lat":34.6744242,"lng":135.5030799,"ics":[["20:00","공연 1세트"],["21:30","공연 2세트"]]},
+      {"id":"d1-15","t":"20:00","tEnd":"21:30","tShow":"20:00 / 21:30","name":"공연 2세트","memo":"Shingo Kano Quartet","cost":0,"lat":34.6744242,"lng":135.5030799,"ics":[["20:00","공연 1세트"],["21:30","공연 2세트"]]},
       {"id":"d1-16","t":"23:00","name":"도보 귀가","memo":"","cost":0},
       {"id":"d1-17","t":"23:30","name":"대욕장","memo":"~익일 09:30 운영","cost":0}
     ]},
@@ -275,7 +288,7 @@ nav button.on{color:var(--shu)}
       {"id":"d2-02","t":"06:25","name":"러닝","memo":"우츠보 공원 왕복 5.5km, 6'30\"/km","cost":0,"lat":34.6849820,"lng":135.4935063},
       {"id":"d2-03","t":"07:10","name":"대욕장","memo":"","cost":0},
       {"id":"d2-04","t":"07:50","name":"아침","memo":"슈퍼 — 요구르트/삶은계란/바나나","cost":500},
-      {"id":"d2-05","t":"08:30","name":"출발","memo":"난바 → 다니마치욘초메","cost":240,"q":"谷町四丁目駅"},
+      {"id":"d2-05","t":"08:30","name":"출발","memo":"난바 → 다니마치욘초메","cost":240,"q":"谷町四丁目駅","mode":"transit"},
       {"id":"d2-06","t":"09:15","name":"오사카성 공원","memo":"오테몬→니시노마루→천수각→극락교→아오야몬, 3km","cost":0,"lat":34.6864797,"lng":135.5262114},
       {"id":"d2-07","t":"11:15","name":"오카와 강변 도보","memo":"2.5km, 사쿠라노미야 구간","cost":0,"q":"桜之宮公園"},
       {"id":"d2-08","t":"12:20","name":"나카노시마 서진","memo":"1.5km","cost":0,"lat":34.6928357,"lng":135.5071229},
@@ -336,7 +349,7 @@ nav button.on{color:var(--shu)}
 var raw=document.getElementById('data').textContent.replace(/\/\*DATA-(START|END)\*\//g,'');
 var D=JSON.parse(raw);
 var NS='osaka2026:';
-function load(k,d){try{var v=localStorage.getItem(NS+k);return v==null?d:JSON.parse(v)}catch(e){return d}}
+function load(k,d){try{var v=localStorage.getItem(NS+k);if(v==null)return d;var p=JSON.parse(v);return p==null?d:p}catch(e){return d}}
 function save(k,v){try{localStorage.setItem(NS+k,JSON.stringify(v))}catch(e){}}
 var S={done:load('done',{}),ck:load('ck',{}),act:load('act',{}),rate:load('rate',8.75),day:load('day',null)};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -344,9 +357,10 @@ function md(s){return esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
 function yen(n){return '¥'+Math.round(n).toLocaleString('en-US')}
 function won(n){return '₩'+Math.round(n).toLocaleString('en-US')}
 function mapUrl(it){
-  if(it.lat!=null)return 'https://www.google.com/maps/search/?api=1&query='+it.lat+','+it.lng;
-  if(it.q)return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(it.q);
-  return null;
+  // 길찾기 링크. origin 을 비우면 지도 앱이 현재 위치를 쓴다 (앱은 위치 권한 불필요)
+  var dest=it.lat!=null?it.lat+','+it.lng:(it.q?encodeURIComponent(it.q):null);
+  if(!dest)return null;
+  return 'https://www.google.com/maps/dir/?api=1&destination='+dest+'&travelmode='+(it.mode||'walking');
 }
 /* ---- JST clock ---- */
 function jst(){
@@ -360,31 +374,42 @@ function tripDayIdx(date){for(var i=0;i<D.days.length;i++)if(D.days[i].date===da
 
 /* ---- tabs ---- */
 var navBtns=document.querySelectorAll('nav button');
+var scrollPos={},curView='plan',scrollEl=document.getElementById('scroll');
 function showView(v){
+  scrollPos[curView]=scrollEl.scrollTop;curView=v;
   navBtns.forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});
   document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('on',s.id==='v-'+v)});
-  document.getElementById('scroll').scrollTop=0;
+  scrollEl.scrollTop=scrollPos[v]||0;
 }
+// iOS: 키패드가 닫힌 뒤 고정 body 가 밀려 있으면 원위치
+window.addEventListener('focusout',function(){setTimeout(function(){window.scrollTo(0,0)},50)});
+if(window.visualViewport)window.visualViewport.addEventListener('resize',function(){if(!document.activeElement||document.activeElement.tagName!=='INPUT')window.scrollTo(0,0)});
 navBtns.forEach(function(b){b.addEventListener('click',function(){showView(b.dataset.v)})});
 
 /* ---- schedule ---- */
-var curDay=0;
-(function(){var n=jst();var i=tripDayIdx(n.date);curDay=i>=0?i:(S.day!=null?S.day:0)})();
+var curDay=0,autoDay=-1,showPast=false;
+(function(){var n=jst();var i=tripDayIdx(n.date);autoDay=i;curDay=i>=0?i:(S.day!=null?S.day:0)})();
+function endMin(it){return toMin(it.tEnd||it.t)}
 function renderDays(){
   var h='';D.days.forEach(function(d,i){h+='<button data-i="'+i+'" class="'+(i===curDay?'on':'')+'"><b class="jp">'+d.label+'</b><small>'+d.kr+'</small></button>'});
   var el=document.getElementById('days');el.innerHTML=h;
-  el.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){curDay=+b.dataset.i;save('day',curDay);renderDays();renderTL(true)})});
+  el.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){curDay=+b.dataset.i;save('day',curDay);showPast=false;renderDays();renderTL(true)})});
 }
 function nextId(){
   var n=jst();if(tripDayIdx(n.date)!==curDay)return null;
   var items=D.days[curDay].items;
-  for(var i=0;i<items.length;i++){if(toMin(items[i].t)>=n.min)return items[i].id}
+  for(var i=0;i<items.length;i++){if(endMin(items[i])>=n.min)return items[i].id}
   return null;
 }
 function renderTL(scroll){
   var n=jst(),today=tripDayIdx(n.date)===curDay,nx=nextId(),h='';
-  D.days[curDay].items.forEach(function(it){
-    var done=!!S.done[it.id],past=today&&!nx?true:(today&&toMin(it.t)<n.min&&it.id!==nx);
+  var items=D.days[curDay].items,nxIdx=-1;
+  items.forEach(function(it,i){if(it.id===nx)nxIdx=i});
+  var foldN=(nxIdx>2&&!showPast)?nxIdx-1:0; // 다음 카드 바로 앞 1장만 남기고 접는다
+  if(foldN)h+='<button class="fold" id="fold">이전 일정 '+foldN+'개 보기</button>';
+  items.forEach(function(it,i){
+    if(i<foldN)return;
+    var done=!!S.done[it.id],past=today&&!nx?true:(today&&endMin(it)<n.min&&it.id!==nx);
     var url=mapUrl(it);
     var name=url?'<a href="'+url+'" target="_blank" rel="noopener"><svg class="pin" viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>'+esc(it.name)+'</a>':esc(it.name);
     h+='<div class="card'+(done?' done':'')+(it.id===nx?' next':'')+(past&&!done&&it.id!==nx?' past':'')+'" id="c-'+it.id+'">'
@@ -398,6 +423,7 @@ function renderTL(scroll){
       +'</div>';
   });
   var el=document.getElementById('tl');el.innerHTML=h;
+  var fb=document.getElementById('fold');if(fb)fb.addEventListener('click',function(){showPast=true;renderTL(false)});
   el.querySelectorAll('.chk').forEach(function(b){b.addEventListener('click',function(){
     var id=b.dataset.id;if(S.done[id])delete S.done[id];else S.done[id]=true;save('done',S.done);renderTL(false)})});
   if(scroll&&nx){var c=document.getElementById('c-'+nx);if(c)setTimeout(function(){c.scrollIntoView({block:'center'})},50)}
@@ -408,17 +434,28 @@ function tickNow(){
 }
 renderDays();renderTL(true);tickNow();
 var lastNx=nextId();
-setInterval(function(){tickNow();var nx=nextId();if(nx!==lastNx){lastNx=nx;renderTL(false)}},30000);
+function refresh(){
+  tickNow();
+  var i=tripDayIdx(jst().date);
+  if(i>=0&&i!==autoDay){autoDay=i;curDay=i;showPast=false;renderDays();renderCK();renderTL(true);lastNx=nextId();return} // 자정 넘김·앱 복귀
+  var nx=nextId();if(nx!==lastNx){lastNx=nx;renderTL(false)}
+}
+setInterval(refresh,30000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh()});
 
 /* ---- checklist ---- */
+function ckDay(){return autoDay>=0?autoDay:curDay} // 여행 중이면 오늘, 아니면 보고 있는 날
 function renderCK(){
-  var h='';D.checklist.forEach(function(g,gi){
-    h+='<div class="grp"><h3>'+esc(g.g)+'</h3>';
-    g.items.forEach(function(t,ii){var id=gi+'-'+ii,on=!!S.ck[id];
+  var h='',dk=ckDay();D.checklist.forEach(function(g,gi){
+    var daily=g.g==='매일 챙길 것',pre=daily?'d'+dk+'-':'';
+    h+='<div class="grp"><h3>'+esc(g.g)+(daily?'<span class="sub">'+esc(D.days[dk].kr)+'</span>':'')+'</h3>';
+    g.items.forEach(function(t,ii){var id=pre+gi+'-'+ii,on=!!S.ck[id];
       h+='<button class="ck'+(on?' on':'')+'" data-id="'+id+'"><span class="box">'+(on?'✓':'')+'</span><span class="lb">'+esc(t)+'</span></button>'});
+    if(daily)h+='<button class="mini" data-pre="'+pre+'">오늘 것만 초기화</button>';
     h+='</div>'});
   var el=document.getElementById('cks');el.innerHTML=h;
   el.querySelectorAll('.ck').forEach(function(b){b.addEventListener('click',function(){var id=b.dataset.id;if(S.ck[id])delete S.ck[id];else S.ck[id]=true;save('ck',S.ck);renderCK()})});
+  el.querySelectorAll('.mini').forEach(function(b){b.addEventListener('click',function(){var pre=b.dataset.pre;Object.keys(S.ck).forEach(function(k){if(k.indexOf(pre)===0)delete S.ck[k]});save('ck',S.ck);renderCK()})});
 }
 document.getElementById('ck-reset').addEventListener('click',function(){if(confirm('체크리스트를 전부 초기화할까요?')){S.ck={};save('ck',S.ck);renderCK()}});
 renderCK();
@@ -426,6 +463,7 @@ renderCK();
 /* ---- budget ---- */
 var rateEl=document.getElementById('rate');rateEl.value=S.rate;
 rateEl.addEventListener('input',function(){var v=parseFloat(rateEl.value);if(v>0){S.rate=v;save('rate',v);renderSum()}});
+rateEl.addEventListener('blur',function(){if(!(parseFloat(rateEl.value)>0))rateEl.value=S.rate});
 function budgetRows(){var rows=[];D.days.forEach(function(d){d.items.forEach(function(it){if(it.cost)rows.push({id:it.id,name:it.name,sub:d.kr+' '+it.t,cost:it.cost,day:d})})});
   D.extraBudget.forEach(function(x){rows.push({id:x.id,name:x.name,sub:'',cost:x.cost})});return rows}
 function renderSum(){
@@ -437,18 +475,22 @@ function renderSum(){
    +'<div class="'+cls+'"><small>차액</small><b class="mono">'+(diff>0?'+':'')+yen(diff).replace('¥-','-¥')+'</b><em class="mono">'+(diff>0?'+':'')+won(diff*S.rate).replace('₩-','-₩')+'</em></div>';
   document.querySelectorAll('#bd td.e').forEach(function(td){td.querySelector('small').textContent=won(+td.dataset.y*S.rate)});
 }
+function subtotal(dk){var e=0,a=0;budgetRows().forEach(function(r){if((r.day?r.day.kr:'추가')===dk){e+=r.cost;a+=(+S.act[r.id]||0)}});
+  return '<tr class="subt" data-dk="'+esc(dk)+'"><td colspan="3">소계 예상 <b class="mono">'+yen(e)+'</b> · 실제 <b class="mono">'+yen(a)+'</b></td></tr>'}
 function renderBD(){
   var h='',lastDay=null;
   budgetRows().forEach(function(r){
-    var dk=r.day?r.day.kr:'추가';if(dk!==lastDay){lastDay=dk;h+='<tr class="day"><td colspan="3">'+esc(dk)+'</td></tr>'}
+    var dk=r.day?r.day.kr:'추가';if(dk!==lastDay){if(lastDay!==null)h+=subtotal(lastDay);lastDay=dk;h+='<tr class="day"><td colspan="3">'+esc(dk)+'</td></tr>'}
     var a=S.act[r.id];
     h+='<tr><td class="n">'+esc(r.name)+(r.sub?'<small>'+esc(r.sub)+'</small>':'')+'</td>'
       +'<td class="e mono" data-y="'+r.cost+'">'+yen(r.cost)+'<small></small></td>'
-      +'<td class="a"><input type="number" inputmode="numeric" placeholder="0" data-id="'+r.id+'" value="'+(a==null?'':a)+'"></td></tr>';
+      +'<td class="a"><input type="number" inputmode="numeric" placeholder="0" aria-label="'+esc(r.name)+' 실제 금액" data-id="'+r.id+'" value="'+(a==null?'':a)+'"></td></tr>';
   });
+  if(lastDay!==null)h+=subtotal(lastDay);
   var el=document.getElementById('bd');el.innerHTML=h;
   el.querySelectorAll('input').forEach(function(inp){inp.addEventListener('input',function(){
-    var v=inp.value===''?null:parseFloat(inp.value);if(v==null||isNaN(v))delete S.act[inp.dataset.id];else S.act[inp.dataset.id]=v;save('act',S.act);renderSum()})});
+    var v=inp.value===''?null:parseFloat(inp.value);if(v==null||isNaN(v))delete S.act[inp.dataset.id];else S.act[inp.dataset.id]=v;save('act',S.act);renderSum();
+    document.querySelectorAll('#bd tr.subt').forEach(function(tr){var t=document.createElement('tbody');t.innerHTML=subtotal(tr.dataset.dk);tr.replaceWith(t.firstChild)})})});
   renderSum();
 }
 renderBD();
@@ -457,7 +499,7 @@ renderBD();
 (function(){
   var el=document.getElementById('phr'),big=document.getElementById('big');
   D.phrases.forEach(function(p){var b=document.createElement('button');b.className='ph';
-    b.innerHTML='<span class="s">'+esc(p.s)+'</span><span class="j jp">'+esc(p.j)+'</span><span class="r">'+esc(p.r)+'</span>';
+    b.innerHTML='<span class="s">'+esc(p.s)+'</span><span class="j jp" lang="ja">'+esc(p.j)+'</span><span class="r">'+esc(p.r)+'</span>';
     b.addEventListener('click',function(){big.querySelector('.s').textContent=p.s;big.querySelector('.j').textContent=p.j;big.querySelector('.r').textContent=p.r;big.classList.add('on')});
     el.appendChild(b)});
   big.addEventListener('click',function(){big.classList.remove('on')});
