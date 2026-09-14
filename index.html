@@ -34,7 +34,8 @@
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","Noto Sans KR","Noto Sans JP",system-ui,sans-serif;
   font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%;overflow-x:hidden}
-body{padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));min-height:100vh}
+body{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;position:fixed;inset:0}
+#scroll{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 a{color:inherit}
 .mono{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
@@ -158,7 +159,7 @@ details .bd b{color:var(--ink)}
 #big .x{margin-top:40px;color:var(--ink3);font-size:14px}
 
 /* ---------- tab bar ---------- */
-nav{position:fixed;left:0;right:0;bottom:0;height:calc(var(--tab-h) + env(safe-area-inset-bottom));
+nav{flex:0 0 auto;height:calc(var(--tab-h) + env(safe-area-inset-bottom));
   padding-bottom:env(safe-area-inset-bottom);background:var(--bg2);border-top:1px solid var(--line);display:flex;z-index:40}
 nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink3)}
 nav button .k{font-size:20px;line-height:1}
@@ -168,6 +169,7 @@ nav button.on{color:var(--shu)}
 </head>
 <body>
 
+<div id="scroll">
 <header>
   <div class="t"><h1 class="jp">大阪 二泊三日</h1><span class="sub">2026.9.20 – 22</span></div>
   <div class="now" id="now">—</div>
@@ -234,6 +236,7 @@ nav button.on{color:var(--shu)}
     <div class="bd" id="tels"></div>
   </details>
 </section>
+</div><!-- /scroll -->
 
 <div id="big"><div class="s"></div><div class="j jp"></div><div class="r"></div><div class="x">아무 곳이나 누르면 닫힘</div></div>
 
@@ -360,7 +363,7 @@ var navBtns=document.querySelectorAll('nav button');
 function showView(v){
   navBtns.forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});
   document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('on',s.id==='v-'+v)});
-  window.scrollTo(0,0);
+  document.getElementById('scroll').scrollTop=0;
 }
 navBtns.forEach(function(b){b.addEventListener('click',function(){showView(b.dataset.v)})});
 
