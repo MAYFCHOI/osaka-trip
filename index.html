@@ -29,7 +29,8 @@
   --kin:#c9a45c;       /* 金 */
   --tab-h:64px;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;min-width:0}
+.view,.card,.grp,details .bd,.sum div,table.bd td{overflow-wrap:anywhere}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","Noto Sans KR","Noto Sans JP",system-ui,sans-serif;
   font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%;overflow-x:hidden}
@@ -45,8 +46,8 @@ header{position:relative;padding:calc(env(safe-area-inset-top) + 18px) 20px 14px
 header::before{content:"";position:absolute;inset:0;opacity:.13;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cg fill='none' stroke='%23efe6d6' stroke-width='1.2'%3E%3Ccircle cx='40' cy='40' r='36'/%3E%3Ccircle cx='40' cy='40' r='28'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='12'/%3E%3Ccircle cx='0' cy='20' r='36'/%3E%3Ccircle cx='0' cy='20' r='28'/%3E%3Ccircle cx='0' cy='20' r='20'/%3E%3Ccircle cx='0' cy='20' r='12'/%3E%3Ccircle cx='80' cy='20' r='36'/%3E%3Ccircle cx='80' cy='20' r='28'/%3E%3Ccircle cx='80' cy='20' r='20'/%3E%3Ccircle cx='80' cy='20' r='12'/%3E%3C/g%3E%3C/svg%3E");
   background-size:80px 40px}
-header .t{position:relative;display:flex;align-items:baseline;gap:12px}
-header h1{margin:0;font-size:26px;font-weight:700;letter-spacing:.06em}
+header .t{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding-right:48px}
+header h1{margin:0;font-size:24px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
 header .sub{color:var(--ink2);font-size:14px}
 header .sun{position:absolute;right:18px;top:calc(env(safe-area-inset-top) + 14px);width:34px;height:34px;border-radius:50%;background:var(--shu);opacity:.9;box-shadow:0 0 0 4px rgba(224,96,63,.15)}
 header .now{position:relative;margin-top:6px;font-size:13px;color:var(--ink3)}
@@ -70,19 +71,19 @@ h2{font-size:15px;color:var(--ink2);font-weight:600;letter-spacing:.08em;margin:
 .tl{position:relative;padding-left:14px}
 .tl::before{content:"";position:absolute;left:5px;top:12px;bottom:12px;width:2px;background:var(--line);border-radius:2px}
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:12px 12px 12px 14px;margin-bottom:10px;display:grid;grid-template-columns:1fr 48px;gap:6px 8px;
+  padding:12px 12px 12px 14px;margin-bottom:10px;display:grid;grid-template-columns:minmax(0,1fr) 48px;gap:6px 8px;
   transition:opacity .2s}
 .card::before{content:"";position:absolute;left:-13px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--ink3);border:2px solid var(--bg)}
 .card.next{border-color:var(--shu);box-shadow:0 0 0 1px var(--shu) inset}
 .card.next::before{background:var(--shu);box-shadow:0 0 0 4px rgba(224,96,63,.25)}
 .card.past{opacity:.55}
 .card.done{opacity:.5}
-.card .time{font-size:14px;color:var(--kin);font-weight:600;letter-spacing:.04em;display:flex;gap:8px;align-items:center}
+.card .time{font-size:14px;color:var(--kin);font-weight:600;letter-spacing:.04em;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
 .card .time .nx{font-size:11px;background:var(--shu);color:#fff;padding:1px 7px;border-radius:99px;font-weight:700;letter-spacing:.1em}
-.card .name{font-size:19px;font-weight:700;line-height:1.3;word-break:keep-all}
+.card .name{font-size:19px;font-weight:700;line-height:1.3;overflow-wrap:anywhere}
 .card .name a{text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:28px}
 .card .name a .pin{width:14px;height:14px;fill:var(--matcha);flex:none}
-.card .memo{font-size:15px;color:var(--ink2);word-break:keep-all}
+.card .memo{font-size:15px;color:var(--ink2);overflow-wrap:anywhere}
 .card .memo b{color:var(--ink);font-weight:700}
 .card .cost{font-size:15px;color:var(--kin);margin-top:2px}
 .card .chk{grid-row:1/span 4;align-self:center;width:48px;height:48px;border-radius:50%;border:2px solid var(--line);
@@ -104,25 +105,25 @@ h2{font-size:15px;color:var(--ink2);font-weight:600;letter-spacing:.08em;margin:
 
 /* ---------- budget ---------- */
 .sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.sum div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 8px;text-align:center}
+.sum div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center;overflow:hidden}
 .sum small{display:block;font-size:12px;color:var(--ink3);letter-spacing:.06em}
-.sum b{display:block;font-size:18px;margin-top:2px}
-.sum em{display:block;font-style:normal;font-size:12px;color:var(--ink2)}
+.sum b{display:block;font-size:clamp(14px,4.4vw,18px);margin-top:2px;white-space:nowrap}
+.sum em{display:block;font-style:normal;font-size:11px;color:var(--ink2);white-space:nowrap}
 .sum .neg b{color:var(--shu)} .sum .pos b{color:var(--matcha)}
 .rate{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:15px}
 .rate input{margin-left:auto;width:90px}
 input[type=number],input[type=text]{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;
   min-height:44px;padding:6px 10px;font-size:17px;text-align:right;-webkit-appearance:none;appearance:none}
 input:focus{outline:none;border-color:var(--kin)}
-table.bd{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table.bd{width:100%;table-layout:fixed;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 table.bd th{font-size:12px;color:var(--ink3);font-weight:600;text-align:left;padding:8px 10px;letter-spacing:.06em;border-bottom:1px solid var(--line)}
 table.bd td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:middle}
 table.bd td.n{font-size:15px}
 table.bd td.n small{display:block;color:var(--ink3);font-size:12px}
-table.bd td.e{white-space:nowrap;font-size:15px}
+table.bd td.e{white-space:nowrap;font-size:15px;width:86px}
 table.bd td.e small{display:block;color:var(--ink3);font-size:12px}
-table.bd td.a{width:110px}
-table.bd td.a input{width:100%}
+table.bd td.a{width:96px}
+table.bd td.a input{width:100%;padding:6px 6px}
 table.bd tr.day td{background:var(--bg2);color:var(--matcha);font-size:12px;letter-spacing:.1em;padding:6px 10px}
 
 /* ---------- reference ---------- */
@@ -136,7 +137,7 @@ details .bd p{margin:6px 0}
 details .bd b{color:var(--ink)}
 .ph{display:flex;flex-direction:column;gap:2px;min-height:56px;padding:8px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line);margin-top:8px;text-align:left;width:100%}
 .ph .s{font-size:12px;color:var(--matcha);letter-spacing:.06em}
-.ph .j{font-size:18px;color:var(--ink)}
+.ph .j{font-size:18px;color:var(--ink);overflow-wrap:anywhere}
 .ph .r{font-size:14px;color:var(--ink2)}
 .run{width:100%;border-collapse:collapse;margin-top:8px}
 .run td{padding:6px 4px;border-top:1px solid var(--line);font-size:15px}
@@ -148,10 +149,10 @@ details .bd b{color:var(--ink)}
 .lnk{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--matcha);text-decoration:none;font-weight:600}
 
 /* ---------- overlay ---------- */
-#big{position:fixed;inset:0;background:rgba(26,24,22,.97);display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;z-index:50}
+#big{position:fixed;inset:0;background:rgba(26,24,22,.97);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;text-align:center;z-index:50}
 #big.on{display:flex}
 #big .s{color:var(--matcha);letter-spacing:.1em;font-size:15px}
-#big .j{font-size:44px;line-height:1.35;margin:18px 0;word-break:keep-all}
+#big .j{font-size:clamp(28px,9vw,44px);line-height:1.35;margin:18px 0;overflow-wrap:anywhere;max-width:100%}
 #big .r{font-size:24px;color:var(--ink2)}
 #big .x{margin-top:40px;color:var(--ink3);font-size:14px}
 
